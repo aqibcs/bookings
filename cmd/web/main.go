@@ -1,15 +1,15 @@
 package main
 
 import (
-	"github.com/aqibcs/bookings/pkg/config"
-	"github.com/aqibcs/bookings/pkg/handlers"
-	"github.com/aqibcs/bookings/pkg/render"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
 
 	"github.com/alexedwards/scs/v2"
+	"github.com/aqibcs/bookings/internal/config"
+	"github.com/aqibcs/bookings/internal/handlers"
+	"github.com/aqibcs/bookings/internal/render"
 )
 
 const portNumber = ":8080"

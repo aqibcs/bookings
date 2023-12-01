@@ -1,0 +1,17 @@
+.my-footer {
+    height: 3em;
+    background-color: skyblue;
+    margin-top: 1.5em;
+    padding: 1em;
+    color: #fff;
+    font-size: 25px;
+}
+
+.room-image {
+    max-width: 50%;
+}
+
+.notie-container {
+    box-shadow: none;
+}
+

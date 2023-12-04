@@ -40,7 +40,9 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td mode
 
 	t, ok := tc[tmpl]
 	if !ok {
-		log.Fatal("Could not get templates from template cache")
+		log.Println("Template not found in cache:", tmpl)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
 	}
 
 	buf := new(bytes.Buffer)
@@ -59,7 +61,7 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td mode
 func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 
-	pages, err := filepath.Glob("./templates/*.page.html")
+	pages, err := filepath.Glob("./templates/*.html")
 	if err != nil {
 		return myCache, err
 	}

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bookings_app
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_USER=myuser
+      - DB_PASSWORD=your_password
+      - DB_NAME=bookings
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: bookings_db
+    environment:
+      POSTGRES_DB: bookings
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: your_password
+    ports:
+      - "5432:5432"

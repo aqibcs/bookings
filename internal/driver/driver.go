@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"time"
 
-	_ "github.com/jackc/pgconn"
 	_ "github.com/jackc/pgx/v4"
 	_ "github.com/jackc/pgx/v4/stdlib"
 )
@@ -20,11 +19,11 @@ const maxOpenDbConn = 10
 const maxIdleDbConn = 5
 const maxDbLifetime = 5 * time.Minute
 
-// ConnectSQL creates database pool for Postgres
+// ConnectSQL creates a database pool for Postgres
 func ConnectSQL(dsn string) (*DB, error) {
 	d, err := NewDatabase(dsn)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	d.SetMaxOpenConns(maxOpenDbConn)
@@ -33,15 +32,15 @@ func ConnectSQL(dsn string) (*DB, error) {
 
 	dbConn.SQL = d
 
-	err = testDB(d)
+	err = TestDB(d)
 	if err != nil {
 		return nil, err
 	}
 	return dbConn, nil
 }
 
-// testDB tries to ping the database
-func testDB(d *sql.DB) error {
+// TestDB tries to ping the database
+func TestDB(d *sql.DB) error {
 	err := d.Ping()
 	if err != nil {
 		return err
